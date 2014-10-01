@@ -9,7 +9,6 @@
 
 namespace Lovec\DbChangelog\DI;
 
-use Flame\Modules\DI\ModulesExtension;
 use Flame\Modules\Providers\IPresenterMappingProvider;
 use Kdyby\Events\DI\EventsExtension;
 use Nette\DI\CompilerExtension;
@@ -53,8 +52,7 @@ class ChangelogExtension extends CompilerExtension implements IPresenterMappingP
 			->addTag(EventsExtension::TAG_SUBSCRIBER);
 
 		$builder->addDefinition($this->prefix('router'))
-			->setClass('Lovec\DbChangelog\Router\RouterFactory')
-			->addTag(ModulesExtension::TAG_ROUTER);
+			->setClass('Lovec\DbChangelog\Router\RouterFactory');
 	}
 
 
