@@ -1,0 +1,29 @@
+{
+	"name": "lovec/db-changelog",
+	"description": "Db changelog handles changes in db structure.",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Josef Nevoral",
+			"homepage": "http://www.josef-nevoral.cz/"
+		},
+		{
+			"name": "Tomáš Votruba",
+			"homepage": "http://tomasvotruba.cz"
+		}
+	],
+	"require": {
+		"php": ">=5.3.3",
+		"kdyby/events": "~2.0",
+		"flame/modules": "~2.0"
+	},
+	"require-dev": {
+		"nette/tester": "~1.2",
+		"jakub-onderka/php-parallel-lint": "~0.7"
+	},
+	"autoload": {
+		"psr-0": {
+			"Lovec\\": "src/"
+		}
+	}
+}
