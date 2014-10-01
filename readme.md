@@ -1,5 +1,10 @@
 # Db changelog handles changes in db structure.
 
+[![Build Status](https://travis-ci.org/lovec/db-changelog.svg?branch=master)](https://travis-ci.org/lovec/db-changelog)
+[![Downloads this Month](https://img.shields.io/packagist/dm/lovec/db-changelog.svg)](https://packagist.org/packages/lovec/db-changelog)
+[![Latest stable](https://img.shields.io/packagist/v/lovec/db-changelog.svg)](https://packagist.org/packages/lovec/db-changelog)
+
+
 It is a module Changelog. You can access it from browser by http://*yourProject*/changelog/
 If you make changes in structure, access the url above and insert your sql code.
 It will show up in your git changes to commit.
