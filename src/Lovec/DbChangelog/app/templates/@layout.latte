@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Changelog</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	</head>
+
+	<body>
+		<div class="container">
+			<h1>
+				<a n:href="default">Changelog</a>
+			</h1>
+
+			{foreach $flashes as $flash}
+				<div class="alert alert-{$flash->type}">{$flash->message}</div>
+			{/}
+
+			{include content}
+		</div>
+	</body>
+</html>
