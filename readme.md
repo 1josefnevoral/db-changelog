@@ -20,7 +20,7 @@ Register extension in your `config.neon`:
 
 ```yaml
 extensions:
-	changelog: Lovec\DbChangelog\DI\ChangelogExtensions
+	changelog: Lovec\DbChangelog\DI\ChangelogExtension
 
 changelog: # you can change these defaults
     dir: "%appDir%/../changelog"
