@@ -1,63 +1,54 @@
 <?php
 
-/**
- * @testCase
- */
+namespace Lovec\DbChangelog\Tests\DI;
 
-namespace LovecTests\Cleaner;
-
-use Nette;
-use Tester\Assert;
-use Tester\TestCase;
+use Lovec\DbChangelog\Tests\ContainerFactory;
+use Nette\DI\Container;
+use PHPUnit_Framework_TestCase;
 
 
-$container = require_once __DIR__ . '/../../bootstrap.php';
-
-
-class ChangelogExtensionTest extends TestCase
+class ChangelogExtensionTest extends PHPUnit_Framework_TestCase
 {
 
 	/**
-	 * @var Nette\DI\Container
+	 * @var Container
 	 */
 	private $container;
 
 
-	public function __construct(Nette\DI\Container $container)
+	public function __construct()
 	{
-		$this->container = $container;
+		$containerFactory = new ContainerFactory;
+		$this->container = $containerFactory->create();
 	}
 
 
 	public function testInstances()
 	{
-		Assert::type(
+		$this->assertInstanceOf(
 			'Lovec\DbChangelog\ChangelogManager',
 			$this->container->getByType('Lovec\DbChangelog\ChangelogManager')
 		);
 
-		Assert::type(
+		$this->assertInstanceOf(
 			'Lovec\DbChangelog\Events\OnRequest',
 			$this->container->getByType('Lovec\DbChangelog\Events\OnRequest')
 		);
 
-		Assert::type(
+		$this->assertInstanceOf(
 			'Lovec\DbChangelog\Model\Changelog',
 			$this->container->getByType('Lovec\DbChangelog\Model\Changelog')
 		);
 
-		Assert::type(
+		$this->assertInstanceOf(
 			'Lovec\DbChangelog\Components\AddToChangelog\ControlFactory',
 			$this->container->getByType('Lovec\DbChangelog\Components\AddToChangelog\ControlFactory')
 		);
 
-		Assert::type(
+		$this->assertInstanceOf(
 			'Lovec\DbChangelog\Router\RouterFactory',
 			$this->container->getByType('Lovec\DbChangelog\Router\RouterFactory')
 		);
 	}
 
 }
-
-
-\run(new ChangelogExtensionTest($container));

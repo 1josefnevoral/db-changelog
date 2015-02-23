@@ -1,0 +1,12 @@
+database:
+	dsn: "sqlite::memory:"
+
+
+extensions:
+	changelog: Lovec\DbChangelog\DI\ChangelogExtension
+	- Kdyby\Events\DI\EventsExtension
+	- Flame\Modules\DI\ModulesExtension
+
+
+changelog:
+	dir: %appDir%/temp/changelog

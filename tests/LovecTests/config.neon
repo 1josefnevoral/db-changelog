@@ -1,8 +1,0 @@
-database:
-	dsn: "sqlite::memory:"
-
-
-extensions:
-	changelog: Lovec\DbChangelog\DI\ChangelogExtension
-	events: Kdyby\Events\DI\EventsExtension
-	modules: Flame\Modules\DI\ModulesExtension
