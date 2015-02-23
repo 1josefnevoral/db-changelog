@@ -21,7 +21,7 @@
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"Lovec\\DbChangelog\\Tests": "tests"
+			"Lovec\\DbChangelog\\Tests\\": "tests"
 		}
 	}
 }
