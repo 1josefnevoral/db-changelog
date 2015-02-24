@@ -16,6 +16,8 @@ use Lovec\DbChangelog\ChangelogManager;
 use Nette;
 use Nette\Application\Application;
 use Nette\Application\UI\Presenter;
+use Nette\Http\Request;
+use Nette\Http\Response;
 use Tracy\Debugger;
 
 
@@ -32,17 +34,17 @@ class OnRequest implements Subscriber
 	private $changelogManager;
 
 	/**
-	 * @var \Nette\Http\Request
+	 * @var Request
 	 */
 	private $httpRequest;
 
 	/**
-	 * @var Nette\Http\Response
+	 * @var Response
 	 */
 	private $httpResponse;
 
 
-	public function __construct(ChangelogManager $changelogManager, Nette\Http\Request $httpRequest, Nette\Http\Response $httpResponse)
+	public function __construct(ChangelogManager $changelogManager, Request $httpRequest, Response $httpResponse)
 	{
 		$this->changelogManager = $changelogManager;
 		$this->httpRequest = $httpRequest;
@@ -51,11 +53,11 @@ class OnRequest implements Subscriber
 
 
 	/**
-	 * @return array
+	 * {@inheritdoc}
 	 */
 	public function getSubscribedEvents()
 	{
-		return array('Nette\Application\Application::onPresenter');
+		return ['Nette\Application\Application::onPresenter'];
 	}
 
 

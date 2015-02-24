@@ -1,6 +1,6 @@
 <?php
 
-// include deps
+// include dependencies
 include __DIR__ . '/../vendor/autoload.php';
 
 
@@ -11,7 +11,7 @@ define('TEMP_DIR', __DIR__ . '/temp/' . getmypid());
 Tracy\Debugger::$logDirectory = TEMP_DIR;
 
 
-// cleanup after
+// cleanup afterwards
 register_shutdown_function(function() {
 	Nette\Utils\FileSystem::delete(__DIR__ . '/temp');
 });

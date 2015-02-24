@@ -11,7 +11,7 @@ namespace Lovec\DbChangelog\App\Presenters;
 
 use Lovec\DbChangelog\ChangelogManager;
 use Lovec\DbChangelog\Components\AddToChangelog;
-use Lovec\DbChangelog\Components\AddToChangelog\ControlFactory;
+use Lovec\DbChangelog\Components\AddToChangelog\AddToChangelogControlFactory;
 use Lovec\DbChangelog\Model\Changelog;
 use Nette\Application\UI\Presenter;
 use Nette\Bridges\ApplicationLatte\Template;
@@ -41,7 +41,7 @@ class ChangelogPresenter extends Presenter
 
 	public function __construct(
 		ChangelogManager $changelogManager,
-		ControlFactory $addToChangelogFactory,
+		AddToChangelogControlFactory $addToChangelogFactory,
 	    Changelog $changelogModel)
 	{
 		$this->changelogManager = $changelogManager;
@@ -65,14 +65,14 @@ class ChangelogPresenter extends Presenter
 
 	public function actionDefault()
 	{
-		$this->template->errors = array();
+		$this->template->errors = [];
 		$this->changelogManager->importNewChangelogData();
 		$this->template->queriesToExecute = $this->changelogModel->getQueriesToExecute();
 	}
 
 
 	/**
-	 * @return AddToChangelog\Control
+	 * @return AddToChangelog\AddToChangelogControl
 	 */
 	protected function createComponentAddToChangelog()
 	{
