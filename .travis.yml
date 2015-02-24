@@ -10,8 +10,14 @@ matrix:
   allow_failures:
     - php: hhvm
 
-before_script:
+before_install:
+  - if [ $TRAVIS_PHP_VERSION = '5.6' ]; then PHPUNIT_FLAGS="--coverage-clover=coverage.clover"; else phpenv config-rm xdebug.ini; fi
+
+install:
   - composer install --prefer-source
 
 script:
-  - phpunit
+  - phpunit $PHPUNIT_FLAGS
+
+after_script:
+  - if [ $TRAVIS_PHP_VERSION = '5.6' ]; then wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi
