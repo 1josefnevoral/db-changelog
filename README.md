@@ -1,8 +1,8 @@
 # Db changelog handles changes in db structure.
 
-[![Build Status](https://img.shields.io/travis/lovec/db-changelog/master.svg?style=flat-square)](https://travis-ci.org/lovec/db-changelog)
-[![Quality Score](https://img.shields.io/scrutinizer/g/lovec/db-changelog.svg?style=flat-square)](https://scrutinizer-ci.com/g/lovec/db-changelog)
-[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/lovec/db-changelog.svg?style=flat-square)](https://scrutinizer-ci.com/g/lovec/db-changelog)
+[![Build Status](https://img.shields.io/travis/lovec/DbChangelog/master.svg?style=flat-square)](https://travis-ci.org/lovec/DbChangelog)
+[![Quality Score](https://img.shields.io/scrutinizer/g/lovec/DbChangelog.svg?style=flat-square)](https://scrutinizer-ci.com/g/lovec/DbChangelog)
+[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/lovec/DbChangelog.svg?style=flat-square)](https://scrutinizer-ci.com/g/lovec/DbChangelog)
 [![Downloads this Month](https://img.shields.io/packagist/dm/lovec/db-changelog.svg?style=flat-square)](https://packagist.org/packages/lovec/db-changelog)
 [![Latest stable](https://img.shields.io/packagist/v/lovec/db-changelog.svg?style=flat-square)](https://packagist.org/packages/lovec/db-changelog)
 
