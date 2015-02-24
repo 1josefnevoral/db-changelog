@@ -1,6 +1,6 @@
 # Db changelog handles changes in db structure.
 
-[![Build Status](https://img.shields.io/travis/lovec/DbChangelog/master.svg?style=flat-square)](https://travis-ci.org/lovec/DbChangelog)
+[![Build Status](https://img.shields.io/travis/lovec/DbChangelog/tests.svg?style=flat-square)](https://travis-ci.org/lovec/DbChangelog)
 [![Quality Score](https://img.shields.io/scrutinizer/g/lovec/DbChangelog.svg?style=flat-square)](https://scrutinizer-ci.com/g/lovec/DbChangelog)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/lovec/DbChangelog.svg?style=flat-square)](https://scrutinizer-ci.com/g/lovec/DbChangelog)
 [![Downloads this Month](https://img.shields.io/packagist/dm/lovec/db-changelog.svg?style=flat-square)](https://packagist.org/packages/lovec/db-changelog)
