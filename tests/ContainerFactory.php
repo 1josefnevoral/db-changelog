@@ -18,7 +18,6 @@ class ContainerFactory
 		$config->setTempDirectory(TEMP_DIR);
 		$config->addConfig(__DIR__ . '/config.neon');
 		return $config->createContainer();
-
 	}
 
 }

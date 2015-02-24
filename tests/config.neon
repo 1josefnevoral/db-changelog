@@ -2,6 +2,9 @@ database:
 	dsn: "sqlite::memory:"
 
 
+services:
+	- Lovec\DbChangelog\Tests\DatabaseLoader
+
 extensions:
 	changelog: Lovec\DbChangelog\DI\ChangelogExtension
 	- Kdyby\Events\DI\EventsExtension
