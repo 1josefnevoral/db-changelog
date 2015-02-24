@@ -2,8 +2,11 @@
 
 namespace Lovec\DbChangelog\Tests\DI;
 
+use Lovec\DbChangelog\DI\ChangelogExtension;
 use Lovec\DbChangelog\Tests\ContainerFactory;
+use Nette\DI\Compiler;
 use Nette\DI\Container;
+use Nette\DI\ContainerBuilder;
 use PHPUnit_Framework_TestCase;
 
 
@@ -11,34 +14,32 @@ class ChangelogExtensionTest extends PHPUnit_Framework_TestCase
 {
 
 	/**
-	 * @var Container
+	 * @var ChangelogExtension
 	 */
-	private $container;
+	private $extension;
 
 
-	public function __construct()
+	protected function setUp()
 	{
-		$containerFactory = new ContainerFactory;
-		$this->container = $containerFactory->create();
+		$compiler = new Compiler(new ContainerBuilder);
+		$compiler->compile(['parameters' => [
+			'appDir' => TEMP_DIR
+		]], NULL, NULL);
+		$this->extension = new ChangelogExtension;
+		$this->extension->setCompiler($compiler, 'compiler');
 	}
 
 
-	public function testInstances()
+	public function testLoadConfiguration()
 	{
-		$this->assertInstanceOf(
-			'Lovec\DbChangelog\ChangelogManager',
-			$this->container->getByType('Lovec\DbChangelog\ChangelogManager')
-		);
+		$this->extension->loadConfiguration();
+		$builder = $this->extension->getContainerBuilder();
+		$builder->prepareClassList();
 
-		$this->assertInstanceOf(
-			'Lovec\DbChangelog\Events\OnRequest',
-			$this->container->getByType('Lovec\DbChangelog\Events\OnRequest')
-		);
+		$changelogManagerName = $builder->getByType('Lovec\DbChangelog\ChangelogManager');
+		$changelogManagerDefinition = $builder->getDefinition($changelogManagerName);
 
-		$this->assertInstanceOf(
-			'Lovec\DbChangelog\Model\Changelog',
-			$this->container->getByType('Lovec\DbChangelog\Model\Changelog')
-		);
+		$this->assertSame('Lovec\DbChangelog\ChangelogManager', $changelogManagerDefinition->getClass());
 	}
 
 }
