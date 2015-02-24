@@ -23,10 +23,10 @@ class ChangelogExtension extends CompilerExtension implements IPresenterMappingP
 	/**
 	 * @var array
 	 */
-	private $defaults = array(
+	private $defaults = [
 		'dir' => '%appDir%/../changelog',
 		'table' => 'changelog'
-	);
+	];
 
 
 	public function loadConfiguration()
@@ -45,7 +45,7 @@ class ChangelogExtension extends CompilerExtension implements IPresenterMappingP
 			->setArguments(array($config['table']));
 
 		$builder->addDefinition($this->prefix('component.add'))
-			->setImplement('Lovec\DbChangelog\Components\AddToChangelog\ControlFactory');
+			->setImplement('Lovec\DbChangelog\Components\AddToChangelog\AddToChangelogControlFactory');
 
 		$builder->addDefinition($this->prefix('event.onRequest'))
 			->setClass('Lovec\DbChangelog\Events\OnRequest')
@@ -66,6 +66,15 @@ class ChangelogExtension extends CompilerExtension implements IPresenterMappingP
 
 
 	/**
+	 * {@inheritdoc}
+	 */
+	public function getPresenterMapping()
+	{
+		return ['DbChangelog' => 'Lovec\DbChangelog\App\Presenters\*Presenter'];
+	}
+
+
+	/**
 	 * @param array $config
 	 * @throws AssertionException
 	 * @throws \Exception
@@ -81,17 +90,6 @@ class ChangelogExtension extends CompilerExtension implements IPresenterMappingP
 		if ( ! is_writeable($config['dir'])) {
 			throw new \Exception('Dir "' . $config['dir'] . '" is not writeable.');
 		}
-	}
-
-
-	/**
-	 * Returns array of ClassNameMask => PresenterNameMask
-	 * @example return array('*' => 'Booking\*Module\Presenters\*Presenter');
-	 * @return array
-	 */
-	public function getPresenterMapping()
-	{
-		return array('DbChangelog' => 'Lovec\DbChangelog\App\Presenters\*Presenter');
 	}
 
 }

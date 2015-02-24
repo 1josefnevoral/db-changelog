@@ -10,12 +10,12 @@
 namespace Lovec\DbChangelog\Components\AddToChangelog;
 
 
-interface ControlFactory
+interface AddToChangelogControlFactory
 {
 
 	/**
-	 * @return Control
+	 * @return AddToChangelogControl
 	 */
-	public function create();
+	function create();
 
 }

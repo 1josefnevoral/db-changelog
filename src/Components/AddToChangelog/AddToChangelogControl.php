@@ -11,11 +11,13 @@ namespace Lovec\DbChangelog\Components\AddToChangelog;
 
 use Lovec\DbChangelog\ChangelogManager;
 use Nette;
+use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
+use Nette\Utils\ArrayHash;
 use Nextras\Forms\Rendering\Bs3FormRenderer;
 
 
-class Control extends Nette\Application\UI\Control
+class AddToChangelogControl extends Control
 {
 
 	/**
@@ -46,7 +48,7 @@ class Control extends Nette\Application\UI\Control
 	}
 
 
-	public function processForm($form, $values)
+	public function processForm(Form $form, ArrayHash $values)
 	{
 		$this->changelogManager->addNewQueries($values->description, $values->queries);
 		$this->flashMessage('Queries saved');
@@ -56,6 +58,7 @@ class Control extends Nette\Application\UI\Control
 
 	public function render()
 	{
+		/** @var Form[] $this */
 		$this['form']->render();
 	}
 

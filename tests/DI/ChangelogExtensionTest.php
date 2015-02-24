@@ -39,16 +39,6 @@ class ChangelogExtensionTest extends PHPUnit_Framework_TestCase
 			'Lovec\DbChangelog\Model\Changelog',
 			$this->container->getByType('Lovec\DbChangelog\Model\Changelog')
 		);
-
-		$this->assertInstanceOf(
-			'Lovec\DbChangelog\Components\AddToChangelog\ControlFactory',
-			$this->container->getByType('Lovec\DbChangelog\Components\AddToChangelog\ControlFactory')
-		);
-
-		$this->assertInstanceOf(
-			'Lovec\DbChangelog\Router\RouterFactory',
-			$this->container->getByType('Lovec\DbChangelog\Router\RouterFactory')
-		);
 	}
 
 }
