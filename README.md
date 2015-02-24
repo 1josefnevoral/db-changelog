@@ -1,8 +1,10 @@
 # Db changelog handles changes in db structure.
 
-[![Build Status](https://travis-ci.org/lovec/db-changelog.svg?branch=master)](https://travis-ci.org/lovec/db-changelog)
-[![Downloads this Month](https://img.shields.io/packagist/dm/lovec/db-changelog.svg)](https://packagist.org/packages/lovec/db-changelog)
-[![Latest stable](https://img.shields.io/packagist/v/lovec/db-changelog.svg)](https://packagist.org/packages/lovec/db-changelog)
+[![Build Status](https://img.shields.io/travis/lovec/db-changelog/master.svg?style=flat-square)](https://travis-ci.org/lovec/db-changelog)
+[![Quality Score](https://img.shields.io/scrutinizer/g/lovec/db-changelog.svg?style=flat-square)](https://scrutinizer-ci.com/g/lovec/db-changelog)
+[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/lovec/db-changelog.svg?style=flat-square)](https://scrutinizer-ci.com/g/lovec/db-changelog)
+[![Downloads this Month](https://img.shields.io/packagist/dm/lovec/db-changelog.svg?style=flat-square)](https://packagist.org/packages/lovec/db-changelog)
+[![Latest stable](https://img.shields.io/packagist/v/lovec/db-changelog.svg?style=flat-square)](https://packagist.org/packages/lovec/db-changelog)
 
 
 It is a module Changelog. You can access it from browser by http://*yourProject*/changelog/
@@ -12,6 +14,12 @@ It will show up in your git changes to commit.
 In development mode, changelog automatically detect pulled changes in database and show them to execute in
 your local database.
 In production. You need to manually go to http://*yourProject*/changelog/ and execute changes
+
+
+## Requirements 
+
+- PHP 5.4
+- Nette\Database
 
 
 ## Installation
