@@ -10,7 +10,6 @@
 namespace Lovec\DbChangelog\Components\AddToChangelog;
 
 use Lovec\DbChangelog\ChangelogManager;
-use Nette;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
 use Nette\Utils\ArrayHash;

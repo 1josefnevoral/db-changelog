@@ -92,7 +92,7 @@ class Changelog
 
 
 	/**
-	 * @return int
+	 * @return bool
 	 */
 	public function isFileInserted(SplFileInfo $file)
 	{

@@ -10,7 +10,6 @@
 namespace Lovec\DbChangelog;
 
 use Lovec\DbChangelog\Model\Changelog;
-use Nette;
 use Nette\UnexpectedValueException;
 use Nette\Utils\Finder;
 use Nette\Utils\Strings;
