@@ -4,41 +4,38 @@
  * This file is part of the DbChangelog package
  *
  * For the full copyright and license information, please view
- * the file license.md that was distributed with this source code.
+ * the file LICENSE that was distributed with this source code.
  */
 
 namespace Lovec\DbChangelog;
 
 use Lovec\DbChangelog\Model\Changelog;
-use Nette;
-use Nette\Database\Context;
-use Nette\Object;
 use Nette\UnexpectedValueException;
 use Nette\Utils\Finder;
 use Nette\Utils\Strings;
+use SplFileInfo;
 
 
 /**
  * Handles changes in database structure.
  */
-class ChangelogManager extends Object
+class ChangelogManager
 {
-
-	/**
-	 * @var Changelog
-	 */
-	private $changelogTable;
 
 	/**
 	 * @var string
 	 */
 	private $changelogPath;
 
+	/**
+	 * @var Changelog
+	 */
+	private $changelogTable;
+
 
 	/**
 	 * @param string $changelogPath
-	 * @param string $table
-	 * @param Context $connection
+	 * @param Changelog $changelogTable
 	 */
 	public function __construct($changelogPath, Changelog $changelogTable)
 	{
@@ -66,15 +63,15 @@ class ChangelogManager extends Object
 			if (empty($query)) {
 				continue;
 			}
-			$data = array(
+			$data = [
 				'file' => $filename,
 				'description' => $description,
 				'query' => $query,
 				'executed' => 1,
 				'ins_timestamp' => $time,
 				'ins_dt' => new \DateTime
-			);
-			$this->changelogTable->getTable()->insert($data);
+			];
+			$this->changelogTable->insert($data);
 		}
 		return TRUE;
 	}
@@ -98,7 +95,9 @@ class ChangelogManager extends Object
 			$filename = $file->getBasename('.sql');
 			$fileParts = explode('_', $filename);
 			if (count($fileParts) < 2) {
-				throw new UnexpectedValueException('Changelog file "' . $filename . '" has unexpected form. It should be %timestamp%_%name%.sql');
+				throw new UnexpectedValueException(
+					'Changelog file "' . $filename . '" has unexpected form. It should be %timestamp%_%name%.sql'
+				);
 			}
 
 			if ($this->changelogTable->isFileInserted($file)) {
@@ -116,15 +115,15 @@ class ChangelogManager extends Object
 				if (empty($query)) {
 					continue;
 				}
-				$data = array(
+				$data = [
 					'file' => $file->getBasename(),
 					'description' => substr($fileParts[1], 0),
 					'query' => $query,
 					'executed' => 0,
 					'ins_timestamp' => $fileParts[0],
 					'ins_dt' => new \DateTime
-				);
-				$this->changelogTable->getTable()->insert($data);
+				];
+				$this->changelogTable->insert($data);
 			}
 		}
 		return $newChanges;
@@ -142,8 +141,6 @@ class ChangelogManager extends Object
 
 
 	/**
-	 * Check if files have changed.
-	 *
 	 * @return bool
 	 */
 	public function haveFilesChanged()
@@ -154,8 +151,10 @@ class ChangelogManager extends Object
 
 		if ($oldFileHash === NULL) {
 			return TRUE;
+
 		} elseif ($filesHash !== $oldFileHash) {
 			return TRUE;
+
 		} else {
 			return FALSE;
 		}
@@ -198,7 +197,7 @@ class ChangelogManager extends Object
 	 */
 	private function generateFilesHash()
 	{
-		$fileNames = array();
+		$fileNames = [];
 		foreach ($this->findSqlFiles() as $key => $file) {
 			$fileNames[] = $file->getFilename();
 		}
@@ -208,7 +207,7 @@ class ChangelogManager extends Object
 
 
 	/**
-	 * @return Finder|\SplFileInfo[]
+	 * @return SplFileInfo[]
 	 */
 	private function findSqlFiles()
 	{

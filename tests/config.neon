@@ -1,0 +1,15 @@
+database:
+	dsn: "sqlite::memory:"
+
+
+services:
+	- Lovec\DbChangelog\Tests\DatabaseLoader
+
+extensions:
+	changelog: Lovec\DbChangelog\DI\ChangelogExtension
+	- Kdyby\Events\DI\EventsExtension
+	- Flame\Modules\DI\ModulesExtension
+
+
+changelog:
+	dir: %appDir%/temp/changelog

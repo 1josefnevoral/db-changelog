@@ -4,18 +4,19 @@
  * This file is part of the DbChangelog package
  *
  * For the full copyright and license information, please view
- * the file license.md that was distributed with this source code.
+ * the file LICENSE that was distributed with this source code.
  */
 
 namespace Lovec\DbChangelog\Components\AddToChangelog;
 
 use Lovec\DbChangelog\ChangelogManager;
-use Nette;
+use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
+use Nette\Utils\ArrayHash;
 use Nextras\Forms\Rendering\Bs3FormRenderer;
 
 
-class Control extends Nette\Application\UI\Control
+class AddToChangelogControl extends Control
 {
 
 	/**
@@ -30,6 +31,9 @@ class Control extends Nette\Application\UI\Control
 	}
 
 
+	/**
+	 * @return Form
+	 */
 	protected function createComponentForm()
 	{
 		$form = new Form;
@@ -41,12 +45,14 @@ class Control extends Nette\Application\UI\Control
 			->setAttribute('rows', 10);
 		$form->addSubmit('send', 'Save')
 			->setAttribute('class', 'btn btn-success');
-		$form->onSuccess[] = $this->processForm;
+		$form->onSuccess[] = function (Form $form, ArrayHash $values) {
+			$this->processForm($form, $values);
+		};
 		return $form;
 	}
 
 
-	public function processForm($form, $values)
+	public function processForm(Form $form, ArrayHash $values)
 	{
 		$this->changelogManager->addNewQueries($values->description, $values->queries);
 		$this->flashMessage('Queries saved');
@@ -56,6 +62,7 @@ class Control extends Nette\Application\UI\Control
 
 	public function render()
 	{
+		/** @var Form[] $this */
 		$this['form']->render();
 	}
 

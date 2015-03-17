@@ -4,14 +4,14 @@
  * This file is part of the DbChangelog package
  *
  * For the full copyright and license information, please view
- * the file license.md that was distributed with this source code.
+ * the file LICENSE that was distributed with this source code.
  */
 
 namespace Lovec\DbChangelog\App\Presenters;
 
 use Lovec\DbChangelog\ChangelogManager;
-use Lovec\DbChangelog\Components\AddToChangelog;
-use Lovec\DbChangelog\Components\AddToChangelog\ControlFactory;
+use Lovec\DbChangelog\Components\AddToChangelog\AddToChangelogControl;
+use Lovec\DbChangelog\Components\AddToChangelog\AddToChangelogControlFactory;
 use Lovec\DbChangelog\Model\Changelog;
 use Nette\Application\UI\Presenter;
 use Nette\Bridges\ApplicationLatte\Template;
@@ -41,9 +41,9 @@ class ChangelogPresenter extends Presenter
 
 	public function __construct(
 		ChangelogManager $changelogManager,
-		ControlFactory $addToChangelogFactory,
-	    Changelog $changelogModel)
-	{
+		AddToChangelogControlFactory $addToChangelogFactory,
+		Changelog $changelogModel
+	) {
 		$this->changelogManager = $changelogManager;
 		$this->addToChangelogFactory = $addToChangelogFactory;
 		$this->changelogModel = $changelogModel;
@@ -65,14 +65,14 @@ class ChangelogPresenter extends Presenter
 
 	public function actionDefault()
 	{
-		$this->template->errors = array();
+		$this->template->errors = [];
 		$this->changelogManager->importNewChangelogData();
 		$this->template->queriesToExecute = $this->changelogModel->getQueriesToExecute();
 	}
 
 
 	/**
-	 * @return AddToChangelog\Control
+	 * @return AddToChangelogControl
 	 */
 	protected function createComponentAddToChangelog()
 	{

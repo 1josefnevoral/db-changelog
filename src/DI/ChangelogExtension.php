@@ -4,13 +4,18 @@
  * This file is part of the DbChangelog package
  *
  * For the full copyright and license information, please view
- * the file license.md that was distributed with this source code.
+ * the file LICENSE that was distributed with this source code.
  */
 
 namespace Lovec\DbChangelog\DI;
 
+use Flame\Modules\Application\RouterFactory;
 use Flame\Modules\Providers\IPresenterMappingProvider;
 use Kdyby\Events\DI\EventsExtension;
+use Lovec\DbChangelog\ChangelogManager;
+use Lovec\DbChangelog\Components\AddToChangelog\AddToChangelogControlFactory;
+use Lovec\DbChangelog\Events\OnRequest;
+use Lovec\DbChangelog\Model\Changelog;
 use Nette\DI\CompilerExtension;
 use Nette\DirectoryNotFoundException;
 use Nette\Utils\AssertionException;
@@ -23,10 +28,10 @@ class ChangelogExtension extends CompilerExtension implements IPresenterMappingP
 	/**
 	 * @var array
 	 */
-	protected $defaults = array(
+	private $defaults = [
 		'dir' => '%appDir%/../changelog',
 		'table' => 'changelog'
-	);
+	];
 
 
 	public function loadConfiguration()
@@ -37,22 +42,22 @@ class ChangelogExtension extends CompilerExtension implements IPresenterMappingP
 		$builder = $this->getContainerBuilder();
 
 		$builder->addDefinition($this->prefix('manager'))
-			->setClass('Lovec\DbChangelog\ChangelogManager')
-			->setArguments(array($config['dir']));
+			->setClass(ChangelogManager::class)
+			->setArguments([$config['dir']]);
 
 		$builder->addDefinition($this->prefix('model'))
-			->setClass('Lovec\DbChangelog\Model\Changelog')
-			->setArguments(array($config['table']));
+			->setClass(Changelog::class)
+			->setArguments([$config['table']]);
 
 		$builder->addDefinition($this->prefix('component.add'))
-			->setImplement('Lovec\DbChangelog\Components\AddToChangelog\ControlFactory');
+			->setImplement(AddToChangelogControlFactory::class);
 
 		$builder->addDefinition($this->prefix('event.onRequest'))
-			->setClass('Lovec\DbChangelog\Events\OnRequest')
+			->setClass(OnRequest::class)
 			->addTag(EventsExtension::TAG_SUBSCRIBER);
 
 		$builder->addDefinition($this->prefix('router'))
-			->setClass('Lovec\DbChangelog\Router\RouterFactory');
+			->setClass(RouterFactory::class);
 	}
 
 
@@ -62,6 +67,15 @@ class ChangelogExtension extends CompilerExtension implements IPresenterMappingP
 		if (empty($eventExtension)) {
 			throw new \Exception("Register 'Kdyby\\Events\\DI\\EventsExtension' to your config.neon");
 		}
+	}
+
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getPresenterMapping()
+	{
+		return ['DbChangelog' => 'Lovec\DbChangelog\App\Presenters\*Presenter'];
 	}
 
 
@@ -81,17 +95,6 @@ class ChangelogExtension extends CompilerExtension implements IPresenterMappingP
 		if ( ! is_writeable($config['dir'])) {
 			throw new \Exception('Dir "' . $config['dir'] . '" is not writeable.');
 		}
-	}
-
-
-	/**
-	 * Returns array of ClassNameMask => PresenterNameMask
-	 * @example return array('*' => 'Booking\*Module\Presenters\*Presenter');
-	 * @return array
-	 */
-	public function getPresenterMapping()
-	{
-		return array('DbChangelog' => 'Lovec\DbChangelog\App\Presenters\*Presenter');
 	}
 
 }

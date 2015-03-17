@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS `changelog`;
 CREATE TABLE `changelog` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `file` varchar(255) COLLATE utf8_czech_ci NOT NULL,

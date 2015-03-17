@@ -3,27 +3,24 @@
 	"description": "Db changelog handles changes in db structure.",
 	"license": "MIT",
 	"authors": [
-		{
-			"name": "Josef Nevoral",
-			"homepage": "http://www.josef-nevoral.cz/"
-		},
-		{
-			"name": "Tomáš Votruba",
-			"homepage": "http://tomasvotruba.cz"
-		}
+		{ "name": "Josef Nevoral", "homepage": "http://www.josef-nevoral.cz/" },
+		{ "name": "Tomáš Votruba", "homepage": "http://tomasvotruba.cz" }
 	],
 	"require": {
-		"php": ">=5.3.3",
+		"php": ">=5.5",
+		"nette/database": "~2.2",
 		"kdyby/events": "~2.0",
-		"flame/modules": "~2.3"
-	},
-	"require-dev": {
-		"nette/tester": "~1.2",
-		"jakub-onderka/php-parallel-lint": "~0.7"
+		"flame/modules": "~2.3",
+		"nextras/forms": "~1.4"
 	},
 	"autoload": {
-		"psr-0": {
-			"Lovec\\": "src/"
+		"psr-4": {
+			"Lovec\\DbChangelog\\": "src"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Lovec\\DbChangelog\\Tests\\": "tests"
 		}
 	}
 }

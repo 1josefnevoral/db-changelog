@@ -4,47 +4,45 @@
  * This file is part of the DbChangelog package
  *
  * For the full copyright and license information, please view
- * the file license.md that was distributed with this source code.
+ * the file LICENSE that was distributed with this source code.
  */
 
 namespace Lovec\DbChangelog\Model;
 
-use Nette;
 use Nette\Database\Context;
+use Nette\Database\Table\ActiveRow;
 use Nette\Database\Table\Selection;
+use SplFileInfo;
 
 
-class Changelog extends Nette\Object
+class Changelog
 {
 
 	/**
-	 * @var string
+	 * @var Selection
 	 */
-	private $tableName;
+	private $table;
 
 	/**
 	 * @var Context
 	 */
-	private $db;
+	private $database;
 
 
 	/**
 	 * @param string $tableName
-	 * @param Context $db
+	 * @param Context $database
 	 */
-	public function __construct($tableName, Context $db)
+	public function __construct($tableName, Context $database)
 	{
-		$this->db = $db;
-		$this->tableName = $tableName;
+		$this->table = $database->table($tableName);
+		$this->database = $database;
 	}
 
 
-	/**
-	 * @return Selection
-	 */
-	public function getTable()
+	public function insert(array $data)
 	{
-		return $this->db->table($this->tableName);
+		$this->table->insert($data);
 	}
 
 
@@ -53,29 +51,28 @@ class Changelog extends Nette\Object
 	 */
 	public function getNewQueries()
 	{
-		return $this->getTable()
-			->where('executed', 0)
+		return $this->table->where(['executed' => 0])
 			->order('ins_dt');
 	}
 
 
 	/**
-	 * @param Selection|Nette\Database\Table\ActiveRow[] $queries
+	 * @param Selection|ActiveRow[] $queries
 	 * @return array
 	 */
 	public function executeQueries(Selection $queries)
 	{
-		$errors = array();
+		$errors = [];
 		foreach ($queries as $query) {
 			try {
-				$this->db->query($query->query);
+				$this->database->query($query->query);
 
 				// update query as executed
-				$query->update(array('executed' => 1));
+				$query->update(['executed' => 1]);
 
 			} catch (\Exception $e) {
 				// save information about error in query
-				$query->update(array('error' => $e->getMessage()));
+				$query->update(['error' => $e->getMessage()]);
 				$errors[$query->getPrimary()] = $e->getMessage();
 			}
 		}
@@ -95,12 +92,11 @@ class Changelog extends Nette\Object
 
 
 	/**
-	 * @return int
+	 * @return bool
 	 */
-	public function isFileInserted(\SplFileInfo $file)
+	public function isFileInserted(SplFileInfo $file)
 	{
-		return (bool) $this->getTable()
-			->where('file', $file->getBasename())
+		return (bool) $this->table->where('file', $file->getBasename())
 			->count();
 	}
 
@@ -110,8 +106,7 @@ class Changelog extends Nette\Object
 	 */
 	public function getQueriesToExecute()
 	{
-		return $this->getTable()
-			->where(array('executed' => 0));
+		return $this->table->where(['executed' => 0]);
 	}
 
 }
