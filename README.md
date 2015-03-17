@@ -22,7 +22,13 @@ In production. You need to manually go to http://*yourProject*/changelog/ and ex
 - Nette\Database
 
 
-## Installation
+## Install
+
+Via Composer:
+
+```sh
+composer require lovec/db-changelog
+```
 
 Register extension in your `config.neon`:
 
@@ -35,3 +41,8 @@ changelog: # you can change these defaults
     table: changelog
 ```
 
+
+
+## Usage
+
+TODO
