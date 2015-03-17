@@ -4,13 +4,13 @@
  * This file is part of the DbChangelog package
  *
  * For the full copyright and license information, please view
- * the file license.md that was distributed with this source code.
+ * the file LICENSE that was distributed with this source code.
  */
 
 namespace Lovec\DbChangelog\App\Presenters;
 
 use Lovec\DbChangelog\ChangelogManager;
-use Lovec\DbChangelog\Components\AddToChangelog;
+use Lovec\DbChangelog\Components\AddToChangelog\AddToChangelogControl;
 use Lovec\DbChangelog\Components\AddToChangelog\AddToChangelogControlFactory;
 use Lovec\DbChangelog\Model\Changelog;
 use Nette\Application\UI\Presenter;
@@ -72,7 +72,7 @@ class ChangelogPresenter extends Presenter
 
 
 	/**
-	 * @return AddToChangelog\AddToChangelogControl
+	 * @return AddToChangelogControl
 	 */
 	protected function createComponentAddToChangelog()
 	{

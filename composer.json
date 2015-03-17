@@ -7,7 +7,7 @@
 		{ "name": "Tomáš Votruba", "homepage": "http://tomasvotruba.cz" }
 	],
 	"require": {
-		"php": ">=5.4",
+		"php": ">=5.5",
 		"kdyby/events": "~2.0",
 		"flame/modules": "~2.3",
 		"nextras/forms": "~1.4"

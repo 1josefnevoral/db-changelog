@@ -27,10 +27,10 @@ class ChangelogTest extends PHPUnit_Framework_TestCase
 
 	protected function setUp()
 	{
-		$this->changelogModel = $this->container->getByType('Lovec\DbChangelog\Model\Changelog');
+		$this->changelogModel = $this->container->getByType(Changelog::class);
 
 		/** @var DatabaseLoader $databaseLoader */
-		$databaseLoader = $this->container->getByType('Lovec\DbChangelog\Tests\DatabaseLoader');
+		$databaseLoader = $this->container->getByType(DatabaseLoader::class);
 		$databaseLoader->loadTables();
 
 		$this->changelogModel->insert([

@@ -2,10 +2,9 @@
 
 namespace Lovec\DbChangelog\Tests\DI;
 
+use Lovec\DbChangelog\ChangelogManager;
 use Lovec\DbChangelog\DI\ChangelogExtension;
-use Lovec\DbChangelog\Tests\ContainerFactory;
 use Nette\DI\Compiler;
-use Nette\DI\Container;
 use Nette\DI\ContainerBuilder;
 use PHPUnit_Framework_TestCase;
 
@@ -36,10 +35,10 @@ class ChangelogExtensionTest extends PHPUnit_Framework_TestCase
 		$builder = $this->extension->getContainerBuilder();
 		$builder->prepareClassList();
 
-		$changelogManagerName = $builder->getByType('Lovec\DbChangelog\ChangelogManager');
+		$changelogManagerName = $builder->getByType(ChangelogManager::class);
 		$changelogManagerDefinition = $builder->getDefinition($changelogManagerName);
 
-		$this->assertSame('Lovec\DbChangelog\ChangelogManager', $changelogManagerDefinition->getClass());
+		$this->assertSame(ChangelogManager::class, $changelogManagerDefinition->getClass());
 	}
 
 }
