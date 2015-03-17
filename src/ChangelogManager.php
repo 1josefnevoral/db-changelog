@@ -95,7 +95,9 @@ class ChangelogManager
 			$filename = $file->getBasename('.sql');
 			$fileParts = explode('_', $filename);
 			if (count($fileParts) < 2) {
-				throw new UnexpectedValueException('Changelog file "' . $filename . '" has unexpected form. It should be %timestamp%_%name%.sql');
+				throw new UnexpectedValueException(
+					'Changelog file "' . $filename . '" has unexpected form. It should be %timestamp%_%name%.sql'
+				);
 			}
 
 			if ($this->changelogTable->isFileInserted($file)) {
@@ -151,8 +153,10 @@ class ChangelogManager
 
 		if ($oldFileHash === NULL) {
 			return TRUE;
+
 		} elseif ($filesHash !== $oldFileHash) {
 			return TRUE;
+
 		} else {
 			return FALSE;
 		}

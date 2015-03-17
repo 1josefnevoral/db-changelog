@@ -18,7 +18,7 @@ In production. You need to manually go to http://*yourProject*/changelog/ and ex
 
 ## Requirements 
 
-- PHP 5.4
+- PHP 5.5
 - Nette\Database
 
 

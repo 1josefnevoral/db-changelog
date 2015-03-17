@@ -42,8 +42,8 @@ class ChangelogPresenter extends Presenter
 	public function __construct(
 		ChangelogManager $changelogManager,
 		AddToChangelogControlFactory $addToChangelogFactory,
-		Changelog $changelogModel)
-	{
+		Changelog $changelogModel
+	) {
 		$this->changelogManager = $changelogManager;
 		$this->addToChangelogFactory = $addToChangelogFactory;
 		$this->changelogModel = $changelogModel;

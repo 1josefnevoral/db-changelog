@@ -7,6 +7,7 @@ use Lovec\DbChangelog\Tests\ContainerFactory;
 use Lovec\DbChangelog\Tests\DatabaseLoader;
 use Nette\Utils\DateTime;
 use PHPUnit_Framework_TestCase;
+use SplFileInfo;
 
 
 class ChangelogTest extends PHPUnit_Framework_TestCase
@@ -52,7 +53,7 @@ class ChangelogTest extends PHPUnit_Framework_TestCase
 
 	public function testIsFileInserted()
 	{
-		$fileInfo = new \SplFileInfo('SomeFile.sql');
+		$fileInfo = new SplFileInfo('SomeFile.sql');
 		$this->assertFalse($this->changelogModel->isFileInserted($fileInfo));
 	}
 

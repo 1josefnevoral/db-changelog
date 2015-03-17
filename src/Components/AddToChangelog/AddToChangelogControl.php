@@ -31,6 +31,9 @@ class AddToChangelogControl extends Control
 	}
 
 
+	/**
+	 * @return Form
+	 */
 	protected function createComponentForm()
 	{
 		$form = new Form;
@@ -42,7 +45,9 @@ class AddToChangelogControl extends Control
 			->setAttribute('rows', 10);
 		$form->addSubmit('send', 'Save')
 			->setAttribute('class', 'btn btn-success');
-		$form->onSuccess[] = $this->processForm;
+		$form->onSuccess[] = function (Form $form, ArrayHash $values) {
+			$this->processForm($form, $values);
+		};
 		return $form;
 	}
 
