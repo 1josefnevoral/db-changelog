@@ -57,11 +57,11 @@ class OnRequest implements Subscriber
 	 */
 	public function getSubscribedEvents()
 	{
-		return ['Nette\Application\Application::onPresenter'];
+		return [Application::class . '::onPresenter'];
 	}
 
 
-	public function onPresenter(Application $app, Presenter $presenter)
+	public function onPresenter(Application $application, Presenter $presenter)
 	{
 		if (Debugger::$productionMode === FALSE
 			&& $this->changelogManager->haveFilesChanged()

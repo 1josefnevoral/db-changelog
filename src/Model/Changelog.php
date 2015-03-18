@@ -51,7 +51,7 @@ class Changelog
 	 */
 	public function getNewQueries()
 	{
-		return $this->table->where('executed', 0)
+		return $this->table->where(['executed' => 0])
 			->order('ins_dt');
 	}
 

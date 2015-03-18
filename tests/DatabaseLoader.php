@@ -2,28 +2,28 @@
 
 namespace Lovec\DbChangelog\Tests;
 
-use Nette\Database\Context;
+use Nette\Database\Connection;
+use Nette\Database\Helpers;
 
 
 class DatabaseLoader
 {
 
 	/**
-	 * @var Context
+	 * @var Connection
 	 */
-	private $database;
+	private $connection;
 
 
-	public function __construct(Context $database)
+	public function __construct(Connection $connection)
 	{
-		$this->database = $database;
+		$this->connection = $connection;
 	}
 
 
 	public function loadTables()
 	{
-		$createTableQuery = file_get_contents(__DIR__ . '/../db/changelog-table-postgres.sql');
-		$this->database->query($createTableQuery);
+		Helpers::loadFromFile($this->connection, __DIR__ . '/../db/changelog-table-sqlite.sql');
 	}
 
 }

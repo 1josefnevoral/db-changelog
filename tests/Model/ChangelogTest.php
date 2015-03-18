@@ -3,27 +3,19 @@
 namespace Lovec\DbChangelog\Tests\Model;
 
 use Lovec\DbChangelog\Model\Changelog;
-use Lovec\DbChangelog\Tests\ContainerFactory;
+use Lovec\DbChangelog\Tests\ContainerAwareTestCase;
 use Lovec\DbChangelog\Tests\DatabaseLoader;
 use Nette\Utils\DateTime;
-use PHPUnit_Framework_TestCase;
 use SplFileInfo;
 
 
-class ChangelogTest extends PHPUnit_Framework_TestCase
+class ChangelogTest extends ContainerAwareTestCase
 {
 
 	/**
 	 * @var Changelog
 	 */
 	private $changelogModel;
-
-
-	public function __construct()
-	{
-		$containerFactory = new ContainerFactory;
-		$this->container = $containerFactory->create();
-	}
 
 
 	protected function setUp()
@@ -56,12 +48,5 @@ class ChangelogTest extends PHPUnit_Framework_TestCase
 		$fileInfo = new SplFileInfo('SomeFile.sql');
 		$this->assertFalse($this->changelogModel->isFileInserted($fileInfo));
 	}
-
-
-//	public function testExecuteQueries()
-//	{
-//		$queriesToExecute = $this->changelogModel->getQueriesToExecute();
-//		$this->changelogModel->executeQueries($queriesToExecute);
-//	}
 
 }

@@ -123,7 +123,7 @@ class ChangelogManager
 					'ins_timestamp' => $fileParts[0],
 					'ins_dt' => new \DateTime
 				];
-				$this->changelogTable->getTable()->insert($data);
+				$this->changelogTable->insert($data);
 			}
 		}
 		return $newChanges;
@@ -141,8 +141,6 @@ class ChangelogManager
 
 
 	/**
-	 * Check if files have changed.
-	 *
 	 * @return bool
 	 */
 	public function haveFilesChanged()
