@@ -9,22 +9,20 @@
 
 namespace Lovec\DbChangelog\DI;
 
-use Flame\Modules\Application\RouterFactory;
 use Flame\Modules\Providers\IPresenterMappingProvider;
+use Flame\Modules\DI\ModulesExtension;
 use Kdyby\Events\DI\EventsExtension;
+use Nette\DI\CompilerExtension;
+use Nette\Utils\Validators;
+use Nette\Utils\AssertionException;
 use Lovec\DbChangelog\ChangelogManager;
 use Lovec\DbChangelog\Components\AddToChangelog\AddToChangelogControlFactory;
 use Lovec\DbChangelog\Events\OnRequest;
 use Lovec\DbChangelog\Model\Changelog;
-use Nette\DI\CompilerExtension;
-use Nette\DirectoryNotFoundException;
-use Nette\Utils\AssertionException;
-use Nette\Utils\Validators;
-
+use Lovec\DbChangelog\Router\RouterFactory;
 
 class ChangelogExtension extends CompilerExtension implements IPresenterMappingProvider
 {
-
 	/**
 	 * @var array
 	 */
@@ -57,10 +55,14 @@ class ChangelogExtension extends CompilerExtension implements IPresenterMappingP
 			->addTag(EventsExtension::TAG_SUBSCRIBER);
 
 		$builder->addDefinition($this->prefix('router'))
-			->setClass(RouterFactory::class);
+			->setClass(RouterFactory::class)
+			->addTag(ModulesExtension::TAG_ROUTER);
 	}
 
 
+	/**
+	 * @throws \Exception
+	 */
 	public function beforeCompile()
 	{
 		$eventExtension = $this->compiler->getExtensions('Kdyby\Events\DI\EventsExtension');
@@ -80,7 +82,7 @@ class ChangelogExtension extends CompilerExtension implements IPresenterMappingP
 
 
 	/**
-	 * @param array $config
+	 * @param array
 	 * @throws AssertionException
 	 * @throws \Exception
 	 */

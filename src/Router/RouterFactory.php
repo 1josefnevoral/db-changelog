@@ -9,11 +9,10 @@
 
 namespace Lovec\DbChangelog\Router;
 
-use Nette\Application\IRouter;
+use Flame\Modules\Application\IRouterFactory;
 use Nette\Application\Routers\Route;
 
-
-class RouterFactory
+class RouterFactory implements IRouterFactory
 {
 
 	/**
