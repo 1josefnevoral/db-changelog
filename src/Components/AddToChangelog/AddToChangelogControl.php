@@ -45,9 +45,7 @@ class AddToChangelogControl extends Control
 			->setAttribute('rows', 10);
 		$form->addSubmit('send', 'Save')
 			->setAttribute('class', 'btn btn-success');
-		$form->onSuccess[] = function (Form $form, ArrayHash $values) {
-			$this->processForm($form, $values);
-		};
+		$form->onSuccess[] = $this->processForm;
 		return $form;
 	}
 
@@ -55,7 +53,7 @@ class AddToChangelogControl extends Control
 	public function processForm(Form $form, ArrayHash $values)
 	{
 		$this->changelogManager->addNewQueries($values->description, $values->queries);
-		$this->flashMessage('Queries saved');
+		$this->presenter->flashMessage('Queries saved');
 		$this->presenter->redirect('Changelog:add');
 	}
 
