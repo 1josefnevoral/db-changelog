@@ -45,16 +45,16 @@ class ChangelogManager
 
 
 	/**
-	 * @param string $description
-	 * @param array $queries
+	 * @param string
+	 * @param string
 	 * @return bool
 	 */
-	public function addNewQueries($description, array $queries)
+	public function addNewQueries($description, $queries)
 	{
 		// create new file and save queries there
 		$time = time();
 		$filename = $time . '_' . Strings::webalize(Strings::truncate($description, 30)) . '.sql';
-		file_put_contents($this->changelogPath . $filename, $queries);
+		file_put_contents($this->changelogPath . DIRECTORY_SEPARATOR . $filename, $queries);
 
 		// save queries into database table changelog
 		$queries = explode(';', $queries);
