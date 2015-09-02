@@ -16,13 +16,11 @@ use Lovec\DbChangelog\Model\Changelog;
 use Nette\Application\UI\Presenter;
 use Nette\Bridges\ApplicationLatte\Template;
 
-
 /**
  * @property \stdClass|Template $template
  */
 class ChangelogPresenter extends Presenter
 {
-
 	/**
 	 * @var ChangelogManager
 	 */
@@ -68,6 +66,14 @@ class ChangelogPresenter extends Presenter
 		$this->template->errors = [];
 		$this->changelogManager->importNewChangelogData();
 		$this->template->queriesToExecute = $this->changelogModel->getQueriesToExecute();
+	}
+
+
+	public function actionCss()
+	{
+		header('Content-Type: text/css', TRUE);
+		readfile(__DIR__ . '/../assets/bootstrap.min.css');
+		$this->terminate();
 	}
 
 
