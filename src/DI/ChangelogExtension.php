@@ -27,7 +27,7 @@ class ChangelogExtension extends CompilerExtension implements IPresenterMappingP
 	 * @var array
 	 */
 	private $defaults = [
-		'dir' => '%appDir%/../changelog',
+		'dir' => '%appDir%/changelog',
 		'table' => 'changelog'
 	];
 
