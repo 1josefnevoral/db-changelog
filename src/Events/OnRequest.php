@@ -63,12 +63,13 @@ class OnRequest implements Subscriber
 
 	public function onPresenter(Application $application, Presenter $presenter)
 	{
-		if (Debugger::$productionMode === FALSE
+		if (
+			Debugger::$productionMode === FALSE
 			&& $this->changelogManager->haveFilesChanged()
 			&& $this->changelogManager->importNewChangelogData()
 			&& ! $presenter instanceof ChangelogPresenter
 		) {
-			$this->httpResponse->redirect('db-changelog');
+			$this->httpResponse->redirect('/db-changelog');
 			exit();
 		}
 	}
