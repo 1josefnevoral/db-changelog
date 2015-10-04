@@ -4,11 +4,13 @@
 	"license": "MIT",
 	"authors": [
 		{ "name": "Josef Nevoral", "homepage": "http://www.josef-nevoral.cz/" },
-		{ "name": "Tomáš Votruba", "homepage": "http://tomasvotruba.cz" }
+		{ "name": "Tomáš Votruba", "homepage": "http://tomasvotruba.cz" },
+		{ "name": "Richard Kapička", "homepage": "http://richardkapicka.cz" }
 	],
 	"require": {
 		"php": ">=5.5",
-		"nette/database": "~2.2",
+		"nette/database": "~2.3",
+		"nette/utils": "~2.3",
 		"kdyby/events": "~2.0",
 		"flame/modules": "~2.3",
 		"nextras/forms": "~1.4"
