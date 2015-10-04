@@ -100,30 +100,29 @@ class ChangelogManager
 				);
 			}
 
-			if ($this->changelogTable->isFileInserted($file)) {
-				// this file content was already inserted
-				continue;
-			}
-			$newChanges = TRUE;
+			// Check if file content was not already inserted
+			if ($this->changelogTable->isFileInserted($file) === FALSE) {
+				$newChanges = TRUE;
 
-			// content of the file is not in database table, insert it
-			$filePathname = $file->getPathname();
-			$fileContent = file_get_contents($filePathname);
-			$queries = explode(';', $fileContent);
-			foreach ($queries as $query) {
-				$query = trim($query);
-				if (empty($query)) {
-					continue;
+				// content of the file is not in database table, insert it
+				$filePathname = $file->getPathname();
+				$fileContent = trim(file_get_contents($filePathname));
+				$queries = explode(';', $fileContent);
+				foreach ($queries as $query) {
+					$query = trim($query);
+					if (empty($query)) {
+						continue;
+					}
+					$data = [
+						'file' => $file->getBasename('.sql'),
+						'description' => substr($fileParts[1], 0),
+						'query' => $query,
+						'executed' => 0,
+						'ins_timestamp' => $fileParts[0],
+						'ins_dt' => new \DateTime
+					];
+					$this->changelogTable->insert($data);
 				}
-				$data = [
-					'file' => $file->getBasename(),
-					'description' => substr($fileParts[1], 0),
-					'query' => $query,
-					'executed' => 0,
-					'ins_timestamp' => $fileParts[0],
-					'ins_dt' => new \DateTime
-				];
-				$this->changelogTable->insert($data);
 			}
 		}
 		return $newChanges;

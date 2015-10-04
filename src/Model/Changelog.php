@@ -14,14 +14,12 @@ use Nette\Database\Table\ActiveRow;
 use Nette\Database\Table\Selection;
 use SplFileInfo;
 
-
 class Changelog
 {
-
 	/**
-	 * @var Selection
+	 * @var string
 	 */
-	private $table;
+	private $tableName;
 
 	/**
 	 * @var Context
@@ -30,19 +28,22 @@ class Changelog
 
 
 	/**
-	 * @param string $tableName
-	 * @param Context $database
+	 * @param string
+	 * @param Context
 	 */
 	public function __construct($tableName, Context $database)
 	{
-		$this->table = $database->table($tableName);
+		$this->tableName = $tableName;
 		$this->database = $database;
 	}
 
 
+	/**
+	 * @param array
+	 */
 	public function insert(array $data)
 	{
-		$this->table->insert($data);
+		$this->getTable()->insert($data);
 	}
 
 
@@ -51,13 +52,13 @@ class Changelog
 	 */
 	public function getNewQueries()
 	{
-		return $this->table->where(['executed' => 0])
+		return $this->getTable()->where(['executed' => 0])
 			->order('ins_dt');
 	}
 
 
 	/**
-	 * @param Selection|ActiveRow[] $queries
+	 * @param Selection|ActiveRow[]
 	 * @return array
 	 */
 	public function executeQueries(Selection $queries)
@@ -92,12 +93,13 @@ class Changelog
 
 
 	/**
+	 * @param SplFileInfo
 	 * @return bool
 	 */
 	public function isFileInserted(SplFileInfo $file)
 	{
-		return (bool) $this->table->where('file', $file->getBasename())
-			->count();
+		return (bool) $this->getTable()->where('file', $file->getBasename('.sql'))
+			->count('id');
 	}
 
 
@@ -106,7 +108,16 @@ class Changelog
 	 */
 	public function getQueriesToExecute()
 	{
-		return $this->table->where(['executed' => 0]);
+		return $this->getTable()->where(['executed' => 0]);
+	}
+
+
+	/**
+	 * @return Selection
+	 */
+	private function getTable()
+	{
+		return $this->database->table($this->tableName);
 	}
 
 }
