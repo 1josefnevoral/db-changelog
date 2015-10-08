@@ -53,8 +53,8 @@ class ChangelogManager
 	{
 		// create new file and save queries there
 		$time = time();
-		$filename = $time . '_' . Strings::webalize(Strings::truncate($description, 30)) . '.sql';
-		file_put_contents($this->changelogPath . DIRECTORY_SEPARATOR . $filename, $queries);
+		$filename = $time . '_' . Strings::webalize(Strings::truncate($description, 30));
+		file_put_contents($this->changelogPath . DIRECTORY_SEPARATOR . $filename . '.sql', $queries);
 
 		// save queries into database table changelog
 		$queries = explode(';', $queries);
