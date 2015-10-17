@@ -92,7 +92,7 @@ class ChangelogExtension extends CompilerExtension implements IPresenterMappingP
 		Validators::assertField($config, 'table', 'string');
 
 		if ( ! is_dir($config['dir'])) {
-			throw new DirectoryNotFoundException('Dir "' . $config['dir'] . '" not found! Create it.');
+			throw new \Exception('Dir "' . $config['dir'] . '" not found! Create it.');
 		}
 		if ( ! is_writeable($config['dir'])) {
 			throw new \Exception('Dir "' . $config['dir'] . '" is not writeable.');
