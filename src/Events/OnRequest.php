@@ -15,7 +15,7 @@ use Lovec\DbChangelog\App\Presenters\ChangelogPresenter;
 use Lovec\DbChangelog\ChangelogManager;
 use Nette;
 use Nette\Application\Application;
-use Nette\Application\UI\Presenter;
+use Nette\Application\IPresenter;
 use Nette\Http\Request;
 use Nette\Http\Response;
 use Tracy\Debugger;
@@ -61,7 +61,7 @@ class OnRequest implements Subscriber
 	}
 
 
-	public function onPresenter(Application $application, Presenter $presenter)
+	public function onPresenter(Application $application, IPresenter $presenter)
 	{
 		if (
 			Debugger::$productionMode === FALSE
