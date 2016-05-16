@@ -28,7 +28,8 @@ class ChangelogExtension extends CompilerExtension implements IPresenterMappingP
 	 */
 	private $defaults = [
 		'dir' => '%appDir%/changelog',
-		'table' => 'changelog'
+		'table' => 'changelog',
+		'https' => FALSE,
 	];
 
 
@@ -56,7 +57,8 @@ class ChangelogExtension extends CompilerExtension implements IPresenterMappingP
 
 		$builder->addDefinition($this->prefix('router'))
 			->setClass(RouterFactory::class)
-			->addTag(ModulesExtension::TAG_ROUTER);
+			->addTag(ModulesExtension::TAG_ROUTER)
+			->setArguments([$config['https']]);
 	}
 
 
@@ -90,6 +92,7 @@ class ChangelogExtension extends CompilerExtension implements IPresenterMappingP
 	{
 		Validators::assertField($config, 'dir', 'string');
 		Validators::assertField($config, 'table', 'string');
+		Validators::assertField($config, 'https', 'bool');
 
 		if ( ! is_dir($config['dir'])) {
 			throw new \Exception('Dir "' . $config['dir'] . '" not found! Create it.');
