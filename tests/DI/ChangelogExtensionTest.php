@@ -21,9 +21,10 @@ class ChangelogExtensionTest extends PHPUnit_Framework_TestCase
 	protected function setUp()
 	{
 		$compiler = new Compiler(new ContainerBuilder);
-		$compiler->compile(['parameters' => [
+		$compiler->addConfig(['parameters' => [
 			'appDir' => TEMP_DIR
-		]], NULL, NULL);
+		]]);
+		$compiler->compile();
 		$this->extension = new ChangelogExtension;
 		$this->extension->setCompiler($compiler, 'compiler');
 	}
