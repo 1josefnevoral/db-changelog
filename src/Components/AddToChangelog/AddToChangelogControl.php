@@ -37,15 +37,13 @@ class AddToChangelogControl extends Control
 	protected function createComponentForm()
 	{
 		$form = new Form;
-		$form->setRenderer(new Bs3FormRenderer);
 		$form->addText('description', 'Short description')
 			->setRequired('Write short description what you are changing');
 		$form->addTextArea('queries', 'SQL queries')
 			->setRequired('Complete your query')
 			->setAttribute('rows', 10);
-		$form->addSubmit('send', 'Save')
-			->setAttribute('class', 'btn btn-success');
-		$form->onSuccess[] = $this->processForm;
+		$form->addSubmit('send', 'Save');
+		$form->onSuccess[] = [$this, 'processForm'];
 		return $form;
 	}
 
@@ -61,7 +59,8 @@ class AddToChangelogControl extends Control
 	public function render()
 	{
 		/** @var Form[] $this */
-		$this['form']->render();
+		$this->template->form = $this['form'];
+		$this->template->render(__DIR__ . '/templates/default.latte');
 	}
 
 }

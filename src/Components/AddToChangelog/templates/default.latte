@@ -1,0 +1,28 @@
+{form form, class => 'form-horizontal'}
+	<div n:class="form-group, $form['description']->isRequired() ? required">
+		<div class="col-sm-3 control-label">
+			{label description, class => 'xxxxx' /}
+		</div>
+		<div class="col-sm-9">
+			{input description, class => 'form-control text'}
+		</div>
+	</div>
+
+	<div n:class="form-group, $form['queries']->isRequired() ? required">
+		<div class="col-sm-3 control-label">
+			{label queries, class => 'xxxxx' /}
+		</div>
+		<div class="col-sm-9">
+			{input queries, class => 'form-control'}
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-sm-3 control-label">
+
+		</div>
+		<div class="col-sm-9">
+			{input send, class => 'btn btn-success btn btn-primary button'}
+		</div>
+	</div>
+{/form}
