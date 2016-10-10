@@ -14,28 +14,13 @@ use Nette\Application\Routers\Route;
 
 class RouterFactory implements IRouterFactory
 {
-	/** @var bool */
-	private $https = FALSE;
-
-
-	/**
-	 * @param bool
-	 */
-	public function __construct(
-		$https = FALSE
-	) {
-		$this->https = (bool) $https;
-	}
-
 
 	/**
 	 * @return IRouter
 	 */
 	public function createRouter()
 	{
-		$flags = ($this->https ? Route::SECURED : 0);
-
-		return new Route('<module db-changelog>/<presenter>/<action>', 'Changelog:default', $flags);
+		return new Route('<module db-changelog>/<presenter>/<action>', 'Changelog:default');
 	}
 
 }
