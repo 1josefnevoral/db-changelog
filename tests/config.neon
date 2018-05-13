@@ -6,7 +6,6 @@ services:
 
 extensions:
 	changelog: Lovec\DbChangelog\DI\ChangelogExtension
-	- Kdyby\Events\DI\EventsExtension
 
 changelog:
 	dir: %tempDir%/changelog

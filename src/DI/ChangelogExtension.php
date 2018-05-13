@@ -9,7 +9,6 @@
 
 namespace Lovec\DbChangelog\DI;
 
-use Kdyby\Events\DI\EventsExtension;
 use Nette\DI\CompilerExtension;
 use Nette\Utils\Validators;
 use Nette\Utils\AssertionException;
@@ -49,11 +48,7 @@ class ChangelogExtension extends CompilerExtension
 			->setImplement(AddToChangelogControlFactory::class);
 
 		$builder->addDefinition($this->prefix('event.onRequest'))
-			->setClass(OnRequest::class)
-			->addTag(EventsExtension::TAG_SUBSCRIBER);
-
-		$builder->getDefinition('nette.presenterFactory')
-			->addSetup('setMapping', [$this->getPresenterMapping()]);
+			->setClass(OnRequest::class);
 
 		$builder->addDefinition($this->prefix('routerService'))
 			->setClass(RouterFactory::class)
@@ -65,18 +60,12 @@ class ChangelogExtension extends CompilerExtension
 
 		$builder->getDefinition('router')
 			->addSetup('offsetSet', [NULL, $this->prefix('@routerServiceFactory')]);
-	}
 
+		$builder->getDefinition('application.application')
+			->addSetup('$onPresenter[]', [['@Lovec\DbChangelog\Events\OnRequest', 'onRequest']]);
 
-	/**
-	 * @throws \Exception
-	 */
-	public function beforeCompile()
-	{
-		$eventExtension = $this->compiler->getExtensions('Kdyby\Events\DI\EventsExtension');
-		if (empty($eventExtension)) {
-			throw new \Exception("Register 'Kdyby\\Events\\DI\\EventsExtension' to your config.neon");
-		}
+		$builder->getDefinition('nette.presenterFactory')
+			->addSetup('setMapping', [$this->getPresenterMapping()]);
 	}
 
 

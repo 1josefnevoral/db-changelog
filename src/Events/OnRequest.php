@@ -9,7 +9,6 @@
 
 namespace Lovec\DbChangelog\Events;
 
-use Kdyby\Events\Subscriber;
 use Lovec;
 use Lovec\DbChangelog\App\Presenters\ChangelogPresenter;
 use Lovec\DbChangelog\ChangelogManager;
@@ -25,7 +24,7 @@ use Tracy\Debugger;
  * Redirects to changelog presenter if detect new migrations
  * that haven't been executed yet.
  */
-class OnRequest implements Subscriber
+class OnRequest
 {
 
 	/**
@@ -52,16 +51,7 @@ class OnRequest implements Subscriber
 	}
 
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getSubscribedEvents()
-	{
-		return [Application::class . '::onPresenter'];
-	}
-
-
-	public function onPresenter(Application $application, IPresenter $presenter)
+	public function onRequest(Application $application, IPresenter $presenter)
 	{
 		if (
 			Debugger::$productionMode === FALSE
