@@ -9,8 +9,6 @@
 
 namespace Lovec\DbChangelog\DI;
 
-use Flame\Modules\Providers\IPresenterMappingProvider;
-use Flame\Modules\DI\ModulesExtension;
 use Kdyby\Events\DI\EventsExtension;
 use Nette\DI\CompilerExtension;
 use Nette\Utils\Validators;
@@ -21,7 +19,7 @@ use Lovec\DbChangelog\Events\OnRequest;
 use Lovec\DbChangelog\Model\Changelog;
 use Lovec\DbChangelog\Router\RouterFactory;
 
-class ChangelogExtension extends CompilerExtension implements IPresenterMappingProvider
+class ChangelogExtension extends CompilerExtension
 {
 	/**
 	 * @var array
@@ -54,9 +52,19 @@ class ChangelogExtension extends CompilerExtension implements IPresenterMappingP
 			->setClass(OnRequest::class)
 			->addTag(EventsExtension::TAG_SUBSCRIBER);
 
-		$builder->addDefinition($this->prefix('router'))
+		$builder->getDefinition('nette.presenterFactory')
+			->addSetup('setMapping', [$this->getPresenterMapping()]);
+
+		$builder->addDefinition($this->prefix('routerService'))
 			->setClass(RouterFactory::class)
-			->addTag(ModulesExtension::TAG_ROUTER);
+			->setInject(TRUE);
+
+		$builder->addDefinition($this->prefix('routerServiceFactory'))
+			->setFactory($this->prefix('@routerService') . '::createRouter')
+			->setAutowired(FALSE);
+
+		$builder->getDefinition('router')
+			->addSetup('offsetSet', [NULL, $this->prefix('@routerServiceFactory')]);
 	}
 
 
@@ -73,9 +81,9 @@ class ChangelogExtension extends CompilerExtension implements IPresenterMappingP
 
 
 	/**
-	 * {@inheritdoc}
+	 * @return array
 	 */
-	public function getPresenterMapping()
+	private function getPresenterMapping()
 	{
 		return ['DbChangelog' => 'Lovec\DbChangelog\App\Presenters\*Presenter'];
 	}

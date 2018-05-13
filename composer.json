@@ -11,8 +11,7 @@
 		"php": ">=5.5",
 		"nette/database": "~2.3",
 		"nette/utils": "~2.3",
-		"kdyby/events": "~3.0",
-		"flame/modules": "~2.3"
+		"kdyby/events": "~3.0"
 	},
 	"autoload": {
 		"psr-4": {
